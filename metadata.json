@@ -1,0 +1,8 @@
+{
+  "name": "PriceScanner AI",
+  "description": "Escanea productos con tu cámara y encuentra precios comparativos en línea al instante usando Gemini.",
+  "requestFramePermissions": [
+    "camera",
+    "geolocation"
+  ]
+}
