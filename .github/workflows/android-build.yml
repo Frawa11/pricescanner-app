@@ -20,8 +20,8 @@ jobs:
       - name: Install Dependencies
         run: npm install
         
-      - name: Create dummy env file
-        run: echo "VITE_GEMINI_API_KEY=placeholder" > .env
+      - name: Create env file with API key
+        run: echo "VITE_GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY }}" > .env
         
       - name: Build Web App
         run: npm run build
