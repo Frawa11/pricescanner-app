@@ -4,8 +4,8 @@ import { AnalysisResult, CountryCode, UserLocation } from "../types";
 const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 
 export const analyzeProductImage = async (
-  base64Image: string, 
-  country: CountryCode, 
+  base64Image: string,
+  country: CountryCode,
   location?: UserLocation
 ): Promise<AnalysisResult> => {
   try {
@@ -45,7 +45,7 @@ export const analyzeProductImage = async (
         **Market Analysis:**
         Briefly summarize availability in major US retailers and where it is best to buy.
       `;
-    } 
+    }
     // Portuguese Prompt (BR)
     else if (country === 'BR') {
       prompt = `
@@ -66,7 +66,7 @@ export const analyzeProductImage = async (
         **Análise de Mercado:**
         Resuma brevemente a disponibilidade em grandes varejistas (ex: Mercado Livre, Amazon BR, Magalu) e onde comprar.
       `;
-    } 
+    }
     // Spanish Prompt (Default for Latam/Spain)
     else {
       prompt = `
@@ -89,29 +89,28 @@ export const analyzeProductImage = async (
       `;
     }
 
-    // Construct tools configuration
-    // IMPORTANT: googleSearch and googleMaps should be in the same Tool object if used together.
-    const toolObj: any = { googleSearch: {} };
-    if (location) {
-      toolObj.googleMaps = {};
-    }
-    const tools = [toolObj];
+    // Temporarily disabled Google Search and Maps (requires billing)
+    // const toolObj: any = { googleSearch: {} };
+    // if (location) {
+    //   toolObj.googleMaps = {};
+    // }
+    // const tools = [toolObj];
 
     const config: any = {
-      tools: tools
+      // tools: tools  // Disabled for now
     };
 
-    // Add retrieval config only if location is available
-    if (location) {
-      config.toolConfig = {
-        retrievalConfig: {
-          latLng: {
-            latitude: location.latitude,
-            longitude: location.longitude
-          }
-        }
-      };
-    }
+    // Disabled retrieval config (requires billing)
+    // if (location) {
+    //   config.toolConfig = {
+    //     retrievalConfig: {
+    //       latLng: {
+    //         latitude: location.latitude,
+    //         longitude: location.longitude
+    //       }
+    //     }
+    //   };
+    // }
 
     console.log('API Key exists:', !!process.env.API_KEY);
     console.log('Calling Gemini API with model: gemini-1.5-flash');
