@@ -113,8 +113,11 @@ export const analyzeProductImage = async (
       };
     }
 
+    console.log('API Key exists:', !!process.env.API_KEY);
+    console.log('Calling Gemini API with model: gemini-1.5-flash');
+
     const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
+      model: "gemini-1.5-flash",
       contents: {
         parts: [
           { inlineData: { mimeType: "image/jpeg", data: cleanBase64 } },
